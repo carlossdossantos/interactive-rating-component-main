@@ -1,0 +1,184 @@
+:root{
+    /* PRIMARY */
+    --orange-500: hsl(25, 97%, 53%);
+    /* NEUTRAL */
+    --neutral-white: hsl(0, 100%, 100%);
+    --neutral-grey-500: hsl(217, 12%, 63%);
+    --neutral-grey-900: hsl(213, 19%, 18%);
+    --neutral-grey-950: hsl(216, 12%, 8%);
+}
+
+html{
+    font-size: 15px;
+}
+
+body{
+    background-color: black;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Overpass', sans-serif;
+}
+
+.card{
+    width: 27rem;
+    height: 27rem;
+    background-color: var(--neutral-grey-950);
+    padding: 2rem 2rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 2rem;
+}
+
+.card .icon-star{
+    border-radius: 50%;
+    background-color: var(--neutral-grey-900);
+    display: flex;
+    width: 3.2rem;
+    height: 3.2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.middle-card{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.card h1{
+    color: var(--neutral-white);
+}
+
+.card p{
+    color: var(--neutral-grey-500);
+}
+
+.numbers{
+    display: flex;
+    gap: 1.3rem;
+}
+
+.numbers button{
+    color: var(--neutral-grey-500);
+    border-radius: 50%;
+    background-color: var(--neutral-grey-900);
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 600;
+    outline: 0;
+}
+
+.numbers .number1.active,
+.numbers .number2.active,
+.numbers .number3.active,
+.numbers .number4.active,
+.numbers .number5.active{
+    background-color: white;
+}
+
+.numbers button:hover{
+    background-color: var(--orange-500);
+    color: var(--neutral-grey-950);
+}
+
+.btnSubmit{
+    text-transform: uppercase;
+    border: none;
+    background-color: var(--orange-500);
+    font-weight: 700;
+    width: 22rem;
+    height: 3rem;
+    border-radius: 2rem;
+    letter-spacing: 0.2rem;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    color: black;
+    margin-top: 2rem;
+    outline: 0;
+}
+
+.btnSubmit:hover{
+    background-color: var(--neutral-white);
+}
+
+.display-none,
+.icon-star.display-none,
+.numbers.display-none,
+.btnSubmit.display-none,
+.middle-card.display-none{
+    display: none;
+}
+
+.thank-you-state{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.thank-you-state .img-state{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.thank-you-state .img-state img{
+    width: 10.8rem;
+    height: 7.2rem;
+}
+
+.img-state .selected-number{
+    background-color: var(--neutral-grey-900);
+    padding: 0.5rem 0.5rem;
+    border-radius: 1rem;
+    color: var(--orange-500);
+}
+
+.img-state .info-msg{
+    max-width: 20rem;
+}
+
+@media (max-width: 390px){
+    .card{
+        max-width: 100%;
+        padding: 2rem;
+    }
+
+    .thank-you-state h1{
+        font-size: 1.5rem;
+    }
+
+    .card .thank-you-state{
+        max-width: 100%;
+    }
+
+    .card .thank-you-state .img-state img{
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .card .thank-you-state .img-state .selected-number{
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 360px){
+    .btnSubmit{
+        max-width: 100%;
+    }
+
+    .numbers{
+        max-width: 100%;
+    }
+}
