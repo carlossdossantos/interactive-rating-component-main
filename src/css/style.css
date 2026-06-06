@@ -14,16 +14,22 @@ html{
 
 body{
     background-color: black;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: 'Overpass', sans-serif;
 }
 
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
 .card{
-    width: 27rem;
-    height: 27rem;
+    max-width: 27rem;
+    height: auto;
+    width: 100%;
+    height: 100%;
     background-color: var(--neutral-grey-950);
     padding: 2rem 2rem 0 2rem;
     display: flex;
@@ -55,6 +61,7 @@ body{
 
 .card p{
     color: var(--neutral-grey-500);
+    word-break: break-all;
 }
 
 .numbers{
@@ -171,14 +178,25 @@ body{
     .card .thank-you-state .img-state .selected-number{
         max-width: 100%;
     }
+
+    .numbers{
+        max-width: 100%;
+    }
+
+    .btnSubmit{
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 360px){
     .btnSubmit{
         max-width: 100%;
+        word-break: break-all;
+        height: 100%;
     }
 
     .numbers{
-        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
     }
 }
