@@ -1,8 +1,4 @@
-const number1 = document.querySelector(".number1");
-const number2 = document.querySelector(".number2");
-const number3 = document.querySelector(".number3");
-const number4 = document.querySelector(".number4");
-const number5 = document.querySelector(".number5");
+const ratingButtons = document.querySelectorAll(".numbers button");
 const btnSubmit = document.querySelector(".btnSubmit");
 const question = document.querySelector(".question");
 const text = document.querySelector(".text");
@@ -10,115 +6,89 @@ const iconStar = document.querySelector(".icon-star");
 const numbers = document.querySelector(".numbers");
 const thankState = document.querySelector(".thank-you-state");
 const middleCard = document.querySelector(".middle-card");
+const errorMessage = document.querySelector(".error-message");
 
-number1.addEventListener("click", () => {
-  number1.classList.toggle("active");
-  if (number2.classList.contains("active")) number2.classList.remove("active");
-  if (number3.classList.contains("active")) number3.classList.remove("active");
-  if (number4.classList.contains("active")) number4.classList.remove("active");
-  if (number5.classList.contains("active")) number5.classList.remove("active");
-});
+let selectedRating = null;
 
-number2.addEventListener("click", () => {
-  number2.classList.toggle("active");
-  if (number1.classList.contains("active")) number1.classList.remove("active");
-  if (number3.classList.contains("active")) number3.classList.remove("active");
-  if (number4.classList.contains("active")) number4.classList.remove("active");
-  if (number5.classList.contains("active")) number5.classList.remove("active");
-  var value2 = number2.textContent;
-});
+function showError(message) {
+  errorMessage.textContent = message;
+  errorMessage.classList.remove("display-none");
+  errorMessage.focus();
+}
 
-number3.addEventListener("click", () => {
-  number3.classList.toggle("active");
-  if (number1.classList.contains("active")) number1.classList.remove("active");
-  if (number2.classList.contains("active")) number2.classList.remove("active");
-  if (number4.classList.contains("active")) number4.classList.remove("active");
-  if (number5.classList.contains("active")) number5.classList.remove("active");
-  var value3 = number3.textContent;
-});
+function hideError() {
+  errorMessage.textContent = "";
+  errorMessage.classList.add("display-none");
+}
 
-number4.addEventListener("click", () => {
-  number4.classList.toggle("active");
-  if (number1.classList.contains("active")) number1.classList.remove("active");
-  if (number2.classList.contains("active")) number2.classList.remove("active");
-  if (number3.classList.contains("active")) number3.classList.remove("active");
-  if (number5.classList.contains("active")) number5.classList.remove("active");
-  const value4 = number4.textContent;
-});
+function clearRatingSelection() {
+  ratingButtons.forEach((button) => {
+    button.classList.remove("active");
+    button.setAttribute("aria-checked", "false");
+  });
+}
 
-number5.addEventListener("click", () => {
-  number5.classList.toggle("active");
-  if (number1.classList.contains("active")) number1.classList.remove("active");
-  if (number2.classList.contains("active")) number2.classList.remove("active");
-  if (number3.classList.contains("active")) number3.classList.remove("active");
-  if (number4.classList.contains("active")) number4.classList.remove("active");
-  var value5 = number5.textContent;
+function selectRating(button) {
+  clearRatingSelection();
+  hideError();
+  button.classList.add("active");
+  button.setAttribute("aria-checked", "true");
+  selectedRating = button.textContent.trim();
+}
+
+function moveFocus(index) {
+  const button = ratingButtons[index];
+  button.focus();
+  selectRating(button);
+}
+
+ratingButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    selectRating(button);
+  });
+
+  button.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      moveFocus((index + 1) % ratingButtons.length);
+    }
+
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      moveFocus((index - 1 + ratingButtons.length) % ratingButtons.length);
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      moveFocus(0);
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      moveFocus(ratingButtons.length - 1);
+    }
+  });
 });
 
 btnSubmit.addEventListener("click", () => {
-  if (!number1.classList.contains("active") && !number2.classList.contains("active") && !number3.classList.contains("active") && !number4.classList.contains("active") && !number5.classList.contains("active")) {
-    alert("Nenhum número selecionado");
-  } else {
-    iconStar.classList.add("display-none");
-    question.classList.add("display-none");
-    text.classList.add("display-none");
-    numbers.classList.add("display-none");
-    btnSubmit.classList.add("display-none");
-    middleCard.classList.add("display-none");
-
-    if (number1.classList.contains("active")) {
-      console.log(number1.textContent);
-      thankState.innerHTML = `<div class="img-state">
-                <img src="./src/images/illustration-thank-you.svg" alt="Image ThankYou">
-                <p class="selected-number">You selected ${number1.textContent} out of 5</p>
-                <h1>Thank you!</h1>
-                <p class="info-msg">We appreciate you taking the time to give a rating. If you ever need more support, 
-  don’t hesitate to get in touch!</p>
-            </div>`;
-    }
-
-    if (number2.classList.contains("active")) {
-      console.log(number2.textContent);
-      thankState.innerHTML = `<div class="img-state">
-                <img src="./src/images/illustration-thank-you.svg" alt="Image ThankYou">
-                <p class="selected-number">You selected ${number2.textContent} out of 5</p>
-                <h1>Thank you!</h1>
-                <p class="info-msg">We appreciate you taking the time to give a rating. If you ever need more support, 
-  don’t hesitate to get in touch!</p>
-            </div>`;
-    }
-
-    if (number3.classList.contains("active")) {
-      console.log(number3.textContent);
-      thankState.innerHTML = `<div class="img-state">
-                <img src="./src/images/illustration-thank-you.svg" alt="Image ThankYou">
-                <p class="selected-number">You selected ${number3.textContent} out of 5</p>
-                <h1>Thank you!</h1>
-                <p class="info-msg">We appreciate you taking the time to give a rating. If you ever need more support, 
-  don’t hesitate to get in touch!</p>
-            </div>`;
-    }
-
-    if (number4.classList.contains("active")) {
-      console.log(number4.textContent);
-      thankState.innerHTML = `<div class="img-state">
-                <img src="./src/images/illustration-thank-you.svg" alt="Image ThankYou">
-                <p class="selected-number">You selected ${number4.textContent} out of 5</p>
-                <h1>Thank you!</h1>
-                <p class="info-msg">We appreciate you taking the time to give a rating. If you ever need more support, 
-  don’t hesitate to get in touch!</p>
-            </div>`;
-    }
-
-    if (number5.classList.contains("active")) {
-      console.log(number5.textContent);
-      thankState.innerHTML = `<div class="img-state">
-                <img src="./src/images/illustration-thank-you.svg" alt="Image ThankYou">
-                <p class="selected-number">You selected ${number5.textContent} out of 5</p>
-                <h1>Thank you!</h1>
-                <p class="info-msg">We appreciate you taking the time to give a rating. If you ever need more support, 
-  don’t hesitate to get in touch!</p>
-            </div>`;
-    }
+  if (!selectedRating) {
+    showError("Por favor, selecione um número antes de enviar.");
+    return;
   }
+
+  hideError();
+  iconStar.classList.add("display-none");
+  question.classList.add("display-none");
+  text.classList.add("display-none");
+  numbers.classList.add("display-none");
+  btnSubmit.classList.add("display-none");
+  middleCard.classList.add("display-none");
+
+  thankState.innerHTML = `<div class="img-state">
+            <img src="./src/images/illustration-thank-you.svg" alt="Image ThankYou">
+            <p class="selected-number">You selected ${selectedRating} out of 5</p>
+            <h1>Thank you!</h1>
+            <p class="info-msg">We appreciate you taking the time to give a rating. If you ever need more support, 
+  don’t hesitate to get in touch!</p>
+        </div>`;
 });
